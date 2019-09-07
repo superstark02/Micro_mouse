@@ -7,9 +7,15 @@ QueueArray <int> queue[2];
 
 typedef struct{
   int data = 0;
-  int wall;
+  int wall = 0;
   bool visited = false;
 }maze;
+
+bool right = false;
+bool left = false;
+bool back = false;
+bool front = true;
+  
 maze track[8][8];
 
 
@@ -32,16 +38,16 @@ void flood_fill(int goal_x,int goal_y){
 }
 
 void reach(int x,int y){
-  if(x==(current_X+1)){
-    //right
+  if(x==(current_X+1)&&right_dist>3){
+    //right //right = true everything else false
     moves.push(right);
   }
-  if(y==(current_Y+1)){
-    //forward
+  if(y==(current_Y+1)&&forward_dist>3){
+    //forward //forward = true everything else false
     moves.push(forward);
   }
-  if(y==(current_X-1)){
-    //left
+  if(y==(current_X-1)&&left_dist>3){
+    //left //left = true evrything false
     moves.push(left);
   }
   if(y==(current_Y-1)){
@@ -58,6 +64,23 @@ void reach(int x,int y){
   }
 }
 
+void sense_direction(){
+  int temp;
+  if (right == true){
+    temp = current_X;
+    current_X = current_Y;
+    current_Y = temp;
+  }
+  if (left == true){
+    temp = current_X;
+    current_X = current_Y;
+    current_Y = temp;
+  }
+  if (back == true){
+
+  }
+}
+
 int current_X = 0;
 int current_Y = 0;
 
@@ -66,6 +89,7 @@ void setup() {
 }
 
 void loop() {
+  sense_direction();
   if(front_dist<3){
     track[current_X][current_Y].wall = 1;
     stack[0].push(current_X+1); stack[1].push(current_Y);
