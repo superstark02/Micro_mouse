@@ -53,6 +53,7 @@ void reach(int x,int y){
   else if(x!=(current_X+1)&&x!=(current_X-1)&&y!=(current_Y+1)&&y!=(current_Y-1)){
     //turn around
     //forward
+    //perform complementary moves and
     //check if neghbouring cell is visited, if not prefer turning that side.
   }
 }
