@@ -2,6 +2,7 @@
 #include<QueueArray.h>
 
 StackArray <int> stack[2];
+StackArray <int> moves;
 QueueArray <int> queue[2];
 
 typedef struct{
@@ -11,9 +12,6 @@ typedef struct{
 }maze;
 maze track[8][8];
 
-void wall_mapping(int front_dist,int right_dist,int left_dist){
-  
-}
 
 void flood_fill(int goal_x,int goal_y){
   queue[0].dequeue(); queue[1].dequeue();
@@ -27,13 +25,40 @@ void flood_fill(int goal_x,int goal_y){
 
 
   else if(){
-
+    
   }
   data++;
   flood_fill(queue[0].front(),queue[1].front())
 }
-int current_X;
-int current_Y;
+
+void reach(int x,int y){
+  if(x==(current_X+1)){
+    //right
+    moves.push(right);
+  }
+  if(y==(current_Y+1)){
+    //forward
+    moves.push(forward);
+  }
+  if(y==(current_X-1)){
+    //left
+    moves.push(left);
+  }
+  if(y==(current_Y-1)){
+    //turn around 
+    //forward
+    moves.push(turn_around);
+    moves.push(forward);
+  }
+  else if(x!=(current_X+1)&&x!=(current_X-1)&&y!=(current_Y+1)&&y!=(current_Y-1)){
+    //turn around
+    //forward
+    //check if neghbouring cell is visited, if not prefer turning that side.
+  }
+}
+
+int current_X = 0;
+int current_Y = 0;
 
 void setup() {
     
@@ -42,7 +67,6 @@ void setup() {
 void loop() {
   if(front_dist<3){
     track[current_X][current_Y].wall = 1;
-
     stack[0].push(current_X+1); stack[1].push(current_Y);
     stack[0].push(current_X-1); stack[1].push(current_Y);
   }
